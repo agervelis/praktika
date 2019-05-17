@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1557858973 source:c:\users\aurimas\desktop\programavimas\praktikos zaidimas\1\main.cpp
+	<string>
+	<fcntl.h>
+	<io.h>
+	<iostream>
+	<iomanip>
+	<algorithm>
+	<locale>
+	<stdlib.h>
+	<fstream>
+
