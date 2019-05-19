@@ -19,19 +19,21 @@ struct gear
        string EQNecklace;
        string EQBelt;
     } gr[50];
-void HUD (string zaidvardas,int HP,int MaxHP,int lvl,int AP,int DP,int sidabras);
+double HUD (string zaidvardas,double HP,int MaxHP,int lvl,int AP,int DP,int sidabras,double exp);
 void equipment (string EQHelmet,string EQArmor,string EQGloves,string EQShoes,string EQWEapon,string EQNecklace,string EQBelt);
-void pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name,int &gkills,int &wkills,int &mskills);
-void goblin (int &HP,int &gbHP,int &sidabras,int AP,int gbAP,int p,int DP,int &gkills);
-void gbkova (int &HP,int &gbHP,int AP,int DP,int &sidabras,int gbAP,int &gkills);
-void wolves (int &HP,int &gbHP,int &sidabras,int AP,int gbAP,int p,int DP,int &wkills);
-void wvkova (int &HP,int &wvHP,int AP,int DP,int &sidabras,int wvAP,int &wkills);
-void manshas (int &HP,int &msHP,int &sidabras,int AP,int msAP,int p,int DP,int &mskills);
-void mskova (int &HP,int &msHP,int AP,int DP,int &sidabras,int msAP,int &mskills);
+double pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name,int &gkills,int &wkills,int &mskills,int &lvl,double &exp,int &MaxHP);
+double goblin (double &HP,int &gbHP,int &sidabras,int &AP,int gbAP,int p,int &DP,int &gkills,int &lvl,double &exp,int &MaxHP);
+double gbkova (double &HP,int &gbHP,int &AP,int &DP,int &sidabras,int gbAP,int &gkills,int &lvl,double &exp,int &MaxHP);
+double wolves (double &HP,int &gbHP,int &sidabras,int &AP,int gbAP,int p,int &DP,int &wkills,int &lvl,double &exp,int &MaxHP);
+double wvkova (double &HP,int &wvHP,int &AP,int &DP,int &sidabras,int wvAP,int &wkills,int &lvl,double &exp,int &MaxHP);
+double manshas (double &HP,int &msHP,int &sidabras,int &AP,int msAP,int p,int &DP,int &mskills,int &lvl,double &exp,int &MaxHP);
+double mskova (double &HP,int &msHP,int &AP,int &DP,int &sidabras,int msAP,int &mskills,int &lvl,double &exp,int &MaxHP);
+void difficulty (int &gbHP,int &wvHP,int &msHP);
+void achievements (int gbHP,int gkills,int wvHP,int wkills,int msHP,int mskills,int lvl,string EQWEapon);
 void misijos (int gkills,int wkills,int mskills,int &sidabras);
-void potdrink (int &HP,int b,string &name);
-void potdrinkL (int &HP,int b,string &name);
-void potdrinkM (int &HP,int b,string &name);
+double potdrink (double &HP,int b,string &name);
+double potdrinkL (double &HP,int b,string &name);
+double potdrinkM (double &HP,int b,string &name);
 void bsalmas (int &sidabras,string &name);
 void salmas (int &sidabras,string &name);
 void armoras (int &sidabras,string &name);
@@ -61,8 +63,8 @@ void eqbelt (string &EQArmor,string &name,int &DP,int b);
 void eqweapon (string &EQArmor,string &name,int &DP,int b);
 void parduotuve (int &sidabras,string &name);
 void gobneck (string &EQNecklace,string &name,int &AP,int b);
-void INVENTORYCHECK (int INV,string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name);
-void inventorius (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name);
+double INVENTORYCHECK (int INV,string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name);
+double inventorius (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name);
 int main()
 {
     string zaidvardas;
@@ -76,12 +78,15 @@ int main()
        string EQWEapon="Rosar Greatsword";
        string EQNecklace="Nera";
        string EQBelt="Nera";
-    int MaxHP=100,HP=MaxHP,lvl=1,AP=1,DP=1,sidabras=0;
+
     int gbHP=5,gbAP=1;
     int wvHP=15,wvAP=3;
     int msHP=30,msAP=6;
    cout<<"Iveskite savo varda"<<endl;
    cin>>zaidvardas;
+difficulty (gbHP,wvHP,msHP);
+    int MaxHP=100,lvl=1,AP=1,DP=1,sidabras=0;
+    double HP=MaxHP,exp=0;
     cout<<endl;
     for (int i=0;i<10;i++)
     {
@@ -95,16 +100,16 @@ int main()
            loop==false;
            break;
        }
-       HUD(zaidvardas,HP,MaxHP,lvl,AP,DP,sidabras);
-   pagrindinis(EQHelmet,EQArmor,EQGloves,EQShoes,EQWEapon,EQNecklace,EQBelt,p,loop,sidabras,HP,gbHP,AP,gbAP,DP,wvHP,wvAP,msHP,msAP,name,gkills,wkills,mskills);
+       HUD(zaidvardas,HP,MaxHP,lvl,AP,DP,sidabras,exp);
+   pagrindinis(EQHelmet,EQArmor,EQGloves,EQShoes,EQWEapon,EQNecklace,EQBelt,p,loop,sidabras,HP,gbHP,AP,gbAP,DP,wvHP,wvAP,msHP,msAP,name,gkills,wkills,mskills,lvl,exp,MaxHP);
    }
     return 0;
 }
-void HUD (string zaidvardas,int HP,int MaxHP,int lvl,int AP,int DP,int sidabras)
+double HUD (string zaidvardas,double HP,int MaxHP,int lvl,int AP,int DP,int sidabras,double exp)
 {
-    cout<<zaidvardas<<"  |HP:"<<HP<<"/"<<MaxHP<<"| Lygis:"<<lvl<<"| AP:"<<AP<<" |DP:"<<DP<<" |Sidabras: "<<sidabras<<endl;
+    cout<<zaidvardas<<"  |HP:"<<HP<<"/"<<MaxHP<<"| Lygis:"<<lvl<<" "<<exp<<"/100% "<<"| AP:"<<AP<<" |DP:"<<DP<<" |Sidabras: "<<sidabras<<endl;
 }
-void pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name,int &gkills,int &wkills,int &mskills)
+double pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name,int &gkills,int &wkills,int &mskills,int &lvl,double &exp,int &MaxHP)
 {
         cout<<"1.  Inventorius"<<endl;
     cout<<"2.  Equipment"<<endl;
@@ -113,6 +118,7 @@ void pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQSh
     cout<<"5.  Wolves den (Rekomenduojamas AP (6-9))"<<endl;
     cout<<"6.  Manshas forest (Rekomenduojamas AP (10-14))"<<endl;
     cout<<"7.  Misijos"<<endl;
+    cout<<"8.  Pasiekimai"<<endl;
     cout<<"0. Iseiti"<<endl;
     cout<<"Iveskite pasirinkima"<<endl;
     cin>>p;
@@ -124,13 +130,15 @@ void pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQSh
             break;
       case 3 : parduotuve (sidabras,name);
             break;
-      case 4 : goblin(HP,gbHP,sidabras,AP,gbAP,p,DP,gkills);
+      case 4 : goblin(HP,gbHP,sidabras,AP,gbAP,p,DP,gkills,lvl,exp,MaxHP);
             break;
-      case 5 : wolves(HP,wvHP,sidabras,AP,wvAP,p,DP,wkills);
+      case 5 : wolves(HP,wvHP,sidabras,AP,wvAP,p,DP,wkills,lvl,exp,MaxHP);
             break;
-      case 6 : manshas(HP,msHP,sidabras,AP,msAP,p,DP,mskills);
+      case 6 : manshas(HP,msHP,sidabras,AP,msAP,p,DP,mskills,lvl,exp,MaxHP);
             break;
       case 7 : misijos(gkills,wkills,mskills,sidabras);
+            break;
+      case 8 : achievements(gbHP,gkills,wvHP,wkills,msHP,mskills,lvl,EQWEapon);
             break;
       default : cout<<"Pasirinkto punkto nera"<<endl;
             break;
@@ -138,7 +146,7 @@ void pagrindinis (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQSh
             break;
       }
 }
-void inventorius (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name)
+double inventorius (string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name)
 {
 bool loop2=true;
 int INV;
@@ -224,6 +232,7 @@ switch(SHOP)
         break;
     case 10 : buypotsL(sidabras,name);
         break;
+        default : break;
     case 0 : loop3=false;
         break;
     }
@@ -240,9 +249,8 @@ cout<<"Ginklas: "<<EQWEapon<<endl;
 cout<<"Pakabukas: "<<EQNecklace<<endl;
 cout<<"Dirzas: "<<EQBelt<<endl;
 }
-void goblin (int &HP,int &gbHP,int &sidabras,int AP,int gbAP,int p,int DP,int &gkills)
+double goblin (double &HP,int &gbHP,int &sidabras,int &AP,int gbAP,int p,int &DP,int &gkills,int &lvl,double &exp,int &MaxHP)
 {
-    gbHP=5;
     cout<<"Atvykote i Goblin cave (Rekomenduojamas AP (1-5))"<<endl;
     cout<<"Goblinu HP:"<<gbHP<<"   AP:"<<gbAP<<endl;
     cout<<"Nugaledami goblinus gausite sidabro. Reti item drops: HP Potion (S)/Goblin Necklace"<<endl;
@@ -251,7 +259,7 @@ void goblin (int &HP,int &gbHP,int &sidabras,int AP,int gbAP,int p,int DP,int &g
     cin>>p;
       switch(p)
       {
-        case 1 : gbkova(HP,gbHP,AP,DP,sidabras,gbAP,gkills);
+        case 1 : gbkova(HP,gbHP,AP,DP,sidabras,gbAP,gkills,lvl,exp,MaxHP);
             break;
       default : cout<<"Pasirinkto punkto nera"<<endl;
             break;
@@ -259,17 +267,17 @@ void goblin (int &HP,int &gbHP,int &sidabras,int AP,int gbAP,int p,int DP,int &g
 
       }
 }
-void gbkova (int &HP,int &gbHP,int AP,int DP,int &sidabras,int gbAP,int &gkills)
+double gbkova (double &HP,int &gbHP,int &AP,int &DP,int &sidabras,int gbAP,int &gkills,int &lvl,double &exp,int &MaxHP)
 {
-int dmg=0;
+double dmg=HP;
+double dmg2;
 int rng = rand() % 100 + 1;
     while (gbHP>0 && HP>0)
         {
             gbHP=gbHP-AP;
             if (gbHP>0)
             {
-                HP=HP-(gbAP-(DP*0.01));
-                dmg++;
+                HP=HP-(gbAP*(1-(0.03*DP)));
             }
 
 
@@ -281,6 +289,15 @@ int rng = rand() % 100 + 1;
         else if (gbHP<1)
         {
             gkills++;
+            exp=exp+(20/lvl);
+            if (exp>=100)
+            {
+                lvl++;
+                AP++;
+                DP++;
+                MaxHP=MaxHP+5;
+                exp=0;
+            }
             if (gkills==5)
     {
         sidabras=sidabras+5;
@@ -318,14 +335,16 @@ int rng = rand() % 100 + 1;
                   }
               }
           }
+          dmg2=HP;
+          dmg=dmg-dmg2;
           cout<<"Goblinas jums padare "<<dmg<<" zalos"<<endl;
           sidabras=sidabras+1;
         }
 
 }
-void wolves (int &HP,int &wvHP,int &sidabras,int AP,int wvAP,int p,int DP,int &wkills)
+double wolves (double &HP,int &wvHP,int &sidabras,int &AP,int wvAP,int p,int &DP,int &wkills,int &lvl,double &exp,int &MaxHP)
 {
-    wvHP=15;
+
     cout<<"Atvykote i Wolves den (Rekomenduojamas AP (6-9))"<<endl;
     cout<<"Vilku HP:"<<wvHP<<"   AP:"<<wvAP<<endl;
     cout<<"Nugaledami vilkus gausite sidabro. Reti item drops: HP Potion (M)/Wolves fang"<<endl;
@@ -334,7 +353,7 @@ void wolves (int &HP,int &wvHP,int &sidabras,int AP,int wvAP,int p,int DP,int &w
     cin>>p;
       switch(p)
       {
-        case 1 : wvkova(HP,wvHP,AP,DP,sidabras,wvAP,wkills);
+        case 1 : wvkova(HP,wvHP,AP,DP,sidabras,wvAP,wkills,lvl,exp,MaxHP);
         break;
       default : cout<<"Pasirinkto punkto nera"<<endl;
             break;
@@ -342,17 +361,17 @@ void wolves (int &HP,int &wvHP,int &sidabras,int AP,int wvAP,int p,int DP,int &w
 
       }
 }
-void wvkova (int &HP,int &wvHP,int AP,int DP,int &sidabras,int wvAP,int &wkills)
+double wvkova (double &HP,int &wvHP,int &AP,int &DP,int &sidabras,int wvAP,int &wkills,int &lvl,double &exp,int &MaxHP)
 {
-int dmg=0;
+double dmg=HP;
+double dmg2;
 int rng = rand() % 100 + 1;
     while (wvHP>0 && HP>0)
         {
             wvHP=wvHP-AP;
             if (wvHP>0)
             {
-                HP=HP-(wvAP-(DP*0.01));
-                dmg=dmg+3;
+                HP=HP-(wvAP*(1-(0.03*DP)));
             }
 
 
@@ -363,6 +382,15 @@ int rng = rand() % 100 + 1;
         }
         else if (wvHP<1)
         {
+            exp=exp+(35/lvl);
+            if (exp>=100)
+            {
+                lvl++;
+                AP++;
+                DP++;
+                MaxHP=MaxHP+5;
+                exp=0;
+            }
             wkills++;
             if (wkills==5)
     {
@@ -401,14 +429,15 @@ int rng = rand() % 100 + 1;
                   }
               }
           }
+          dmg2=HP;
+          dmg=dmg-dmg2;
           cout<<"Vilkas jums padare "<<dmg<<" zalos"<<endl;
           sidabras=sidabras+5;
         }
 
 }
-void manshas (int &HP,int &msHP,int &sidabras,int AP,int msAP,int p,int DP,int &mskills)
+double manshas (double &HP,int &msHP,int &sidabras,int &AP,int msAP,int p,int &DP,int &mskills,int &lvl,double &exp,int &MaxHP)
 {
-    msHP=15;
     cout<<"Atvykote i Manshas forest (Rekomenduojamas AP (10-15))"<<endl;
     cout<<"Manshu HP:"<<msHP<<"   AP:"<<msAP<<endl;
     cout<<"Nugaledami manshas gausite sidabro. Reti item drops: HP Potion (L)/Manshas totem"<<endl;
@@ -417,7 +446,7 @@ void manshas (int &HP,int &msHP,int &sidabras,int AP,int msAP,int p,int DP,int &
     cin>>p;
       switch(p)
       {
-        case 1 : mskova(HP,msHP,AP,DP,sidabras,msAP,mskills);
+        case 1 : mskova(HP,msHP,AP,DP,sidabras,msAP,mskills,lvl,exp,MaxHP);
         break;
       default : cout<<"Pasirinkto punkto nera"<<endl;
             break;
@@ -425,17 +454,17 @@ void manshas (int &HP,int &msHP,int &sidabras,int AP,int msAP,int p,int DP,int &
 
       }
 }
-void mskova (int &HP,int &msHP,int AP,int DP,int &sidabras,int msAP,int &mskills)
+double mskova (double &HP,int &msHP,int &AP,int &DP,int &sidabras,int msAP,int &mskills,int &lvl,double &exp,int &MaxHP)
 {
-int dmg=0;
+double dmg=HP;
+double dmg2;
 int rng = rand() % 100 + 1;
     while (msHP>0 && HP>0)
         {
             msHP=msHP-AP;
             if (msHP>0)
             {
-                HP=HP-(msAP-(DP*0.01));
-                dmg=dmg+6;
+                HP=HP-(msAP*(1-(0.03*DP)));
             }
 
 
@@ -446,6 +475,15 @@ int rng = rand() % 100 + 1;
         }
         else if (msHP<1)
         {
+            exp=exp+(50/lvl);
+            if (exp>=100)
+            {
+                lvl++;
+                AP++;
+                DP++;
+                MaxHP=MaxHP+5;
+                exp=0;
+            }
             mskills++;
             if (mskills==5)
     {
@@ -484,12 +522,14 @@ int rng = rand() % 100 + 1;
                   }
               }
           }
+          dmg2=HP;
+          dmg=dmg-dmg2;
           cout<<"Mansha jums padare "<<dmg<<" zalos"<<endl;
           sidabras=sidabras+10;
         }
 
 }
-void INVENTORYCHECK (int INV,string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,int &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name)
+double INVENTORYCHECK (int INV,string &EQHelmet,string &EQArmor,string &EQGloves,string &EQShoes,string &EQWEapon,string &EQNecklace,string &EQBelt,int p,bool &loop,int &sidabras,double &HP,int gbHP,int &AP,int gbAP,int &DP,int wvHP,int wvAP,int msHP,int msAP,string &name)
 {
     int INV2,b=0;
     for(int k=0;k<INV;k++)
@@ -679,7 +719,7 @@ void INVENTORYCHECK (int INV,string &EQHelmet,string &EQArmor,string &EQGloves,s
     }
 
 }
-void potdrink (int &HP,int b,string &name)
+double potdrink (double &HP,int b,string &name)
 {
    gr[b-1].name=" ";
         if (HP+5>100)
@@ -690,7 +730,7 @@ void potdrink (int &HP,int b,string &name)
         HP=HP+5;
         }
 }
-void potdrinkM (int &HP,int b,string &name)
+double potdrinkM (double &HP,int b,string &name)
 {
    gr[b-1].name=" ";
         if (HP+10>100)
@@ -701,7 +741,7 @@ void potdrinkM (int &HP,int b,string &name)
         HP=HP+10;
         }
 }
-void potdrinkL (int &HP,int b,string &name)
+double potdrinkL (double &HP,int b,string &name)
 {
    gr[b-1].name=" ";
         if (HP+15>100)
@@ -1193,4 +1233,150 @@ void misijos (int gkills,int wkills,int mskills,int &sidabras)
     cout<<"8. Nukaukite 10 manshas. Atlygis - 7 sidabro. ("<<mskills<<"/10)"<<endl;
     cout<<"9. Nukaukite 15 manshas. Atlygis - 7 sidabro. ("<<mskills<<"/15)"<<endl;
 
+}
+void difficulty (int &gbHP,int &wvHP,int &msHP)
+{
+    cout<<"Pasirinkite zaidimo sunkuma"<<endl;
+    cout<<"1. Lengvas"<<endl;
+    cout<<"2. Vidutinis"<<endl;
+    cout<<"3. Sunkus"<<endl;
+    int pas;
+
+    bool loopas=true;
+    while (loopas==true)
+    {cin>>pas;
+       switch (pas)
+    {
+    case 1: loopas=false; break;
+    case 2: gbHP=10,wvHP=30,msHP=60; loopas=false; break;
+    case 3: gbHP=30,wvHP=90,msHP=150; loopas=false; break;
+    default: cout<<"Pasirinkimo nera"<<endl; break;
+    }
+    }
+
+}
+void achievements (int gbHP,int gkills,int wvHP,int wkills,int msHP,int mskills,int lvl,string EQWEapon)
+{
+    cout<<"Jusu pasiekimai: "<<endl;
+    cout<<"Pradejote zaidima!"<<endl;
+    if (gbHP==5 && gkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji goblina!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (gbHP==5 && gkills>=5)
+    {
+        cout<<"Uzmusete 5 goblinus!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (gbHP==5 && gkills>=10)
+    {
+        cout<<"Uzmusete 10 goblinu!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (wvHP==10 && wkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji vilka!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (wvHP==10 && wkills>=5)
+    {
+        cout<<"Uzmusete 5 vilkus!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (wvHP==10 && wkills>=10)
+    {
+        cout<<"Uzmusete 10 vilku!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (msHP==15 && mskills>=1)
+    {
+        cout<<"Uzmusete savo pirmaja mansha!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (msHP==15 && mskills>=5)
+    {
+        cout<<"Uzmusete 5 manshas!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (msHP==15 && mskills>=10)
+    {
+        cout<<"Uzmusete 10 manshu!(Zaidimo sunkumas: lengvas)"<<endl;
+    }
+    if (gbHP==10 && gkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji goblina!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (gbHP==10 && gkills>=5)
+    {
+        cout<<"Uzmusete 5 goblinus!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (gbHP==10 && gkills>=10)
+    {
+        cout<<"Uzmusete 10 goblinu!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (wvHP==30 && wkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji vilka!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (wvHP==30 && wkills>=5)
+    {
+        cout<<"Uzmusete 5 vilkus!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (wvHP==30 && wkills>=10)
+    {
+        cout<<"Uzmusete 10 vilku!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (msHP==60 && mskills>=1)
+    {
+        cout<<"Uzmusete savo pirmaja mansha!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (msHP==60 && mskills>=5)
+    {
+        cout<<"Uzmusete 5 manshas!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (msHP==60 && mskills>=10)
+    {
+        cout<<"Uzmusete 10 manshu!(Zaidimo sunkumas: vidutinis)"<<endl;
+    }
+    if (gbHP==30 && gkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji goblina!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (gbHP==30 && gkills>=5)
+    {
+        cout<<"Uzmusete 5 goblinus!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (gbHP==30 && gkills>=10)
+    {
+        cout<<"Uzmusete 10 goblinu!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (wvHP==90 && wkills>=1)
+    {
+        cout<<"Uzmusete savo pirmaji vilka!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (wvHP==90 && wkills>=5)
+    {
+        cout<<"Uzmusete 5 vilkus!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (wvHP==90 && wkills>=10)
+    {
+        cout<<"Uzmusete 10 vilku!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (msHP==150 && mskills>=1)
+    {
+        cout<<"Uzmusete savo pirmaja mansha!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (msHP==150 && mskills>=5)
+    {
+        cout<<"Uzmusete 5 manshas!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (msHP==150 && mskills>=10)
+    {
+        cout<<"Uzmusete 10 manshu!(Zaidimo sunkumas: sunkus)"<<endl;
+    }
+    if (lvl>=2)
+    {
+        cout<<"Pakelete savo pirmaji lygi!"<<endl;
+    }
+    if (lvl>=5)
+    {
+        cout<<"Pakelete 5-taji lygi!"<<endl;
+    }
+    if (EQWEapon!="Rosar greatsword")
+    {
+        cout<<"Uzsidejote nauja ginkla!"<<endl;
+    }
 }
